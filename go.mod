@@ -1,6 +1,6 @@
 module github.com/panxiao81/spire-plugin-oci
 
-go 1.25.0
+go 1.27.4
 
 require (
 	github.com/hashicorp/hcl v1.0.0
