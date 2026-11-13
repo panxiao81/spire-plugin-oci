@@ -72,3 +72,19 @@ The server reads the file on every attestation: to rotate roots, replace the fil
 
 Tagged releases attach static `linux/amd64` and `linux/arm64` binaries for both sides, plus
 `SHA256SUMS` for `plugin_checksum`.
+
+The same binaries are published as a multi-arch image,
+`ghcr.io/panxiao81/spire-plugin-oci:<tag>`, built `FROM scratch` and containing
+`/spire-plugin-oci-server` and `/spire-plugin-oci-agent`. On Kubernetes 1.35+ you can mount it
+straight into the SPIRE server Pod as an image volume:
+
+```yaml
+volumes:
+  - name: oci-plugin
+    image:
+      reference: ghcr.io/panxiao81/spire-plugin-oci:v0.1.1@sha256:…
+volumeMounts:
+  - name: oci-plugin
+    mountPath: /opt/spire/plugins/oci
+    readOnly: true
+```
